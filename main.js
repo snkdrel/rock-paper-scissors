@@ -1,3 +1,4 @@
+// Computer choice
 let computerPlay = function(){
     let randNumber = Math.floor(Math.random() * 3);
     
@@ -10,6 +11,7 @@ let computerPlay = function(){
     }
 };
 
+// Play one round
 let playRound = (playerChoice, computerChoice) => {
     // Case insensitive
     playerChoice = playerChoice.toLowerCase();
@@ -29,6 +31,7 @@ let playRound = (playerChoice, computerChoice) => {
     return resultMsg;
 };
 
+// Play multiple rounds
 function game(){
     let playerScore = 0;
     let computerScore = 0;
@@ -40,18 +43,19 @@ function game(){
         roundResultMsg = playRound(playerSelection, computerPlay());
         console.log(roundResultMsg);
 
-        if(scoreCounter(roundResultMsg)){
+        // Update score
+        if( roundResultMsg.slice(4,7) == "win" ){
             playerScore++;
-        }else{
+        }else if( roundResultMsg.slice(4,9) == "loose" ){
             computerScore++;
         }
     }
+    // Overall winner
+    if(playerScore > computerScore){
+        console.log("You win the game!");
+    }else{
+        console.log("You loose the game!");
+    }
 }
-/*
-// Function that checks who won the round according to message
-// returns true if player won, false otherwise
-function scoreCounter(roundResult){
 
-}
-*/
 game();
