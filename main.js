@@ -11,10 +11,14 @@ let computerPlay = function(){
 };
 
 let playRound = (playerChoice, computerChoice) => {
+    // Case insensitive
+    playerChoice = playerChoice.toLowerCase();
+
     let resultMsg;
     if(playerChoice == computerChoice){
         resultMsg = "Draw!";
-    }else if((playerChoice == "rock" && computerChoice == "scissors") ||
+    } // winning conditions
+    else if((playerChoice == "rock" && computerChoice == "scissors") ||
             (playerChoice == "scissors" && computerChoice == "paper") ||
             (playerChoice == "paper" && computerChoice == "rock")){
                 resultMsg = "You win! " + playerChoice + " beats " + computerChoice;
@@ -25,6 +29,29 @@ let playRound = (playerChoice, computerChoice) => {
     return resultMsg;
 };
 
-const playerSelection = "rock";
-const computerSelection = computerPlay();
-console.log(playRound(playerSelection, computerSelection));
+function game(){
+    let playerScore = 0;
+    let computerScore = 0;
+    let playerSelection;
+    let roundResultMsg;
+
+    for(let i = 0; i < 5; i++){
+        playerSelection = prompt("Choose rock, paper or scissors");
+        roundResultMsg = playRound(playerSelection, computerPlay());
+        console.log(roundResultMsg);
+
+        if(scoreCounter(roundResultMsg)){
+            playerScore++;
+        }else{
+            computerScore++;
+        }
+    }
+}
+/*
+// Function that checks who won the round according to message
+// returns true if player won, false otherwise
+function scoreCounter(roundResult){
+
+}
+*/
+game();
