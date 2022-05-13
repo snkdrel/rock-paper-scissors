@@ -28,6 +28,7 @@ let playRound = (playerChoice, computerChoice) => {
     else{
         resultMsg = "You loose! " + computerChoice + " beats " + playerChoice;
     }
+    divResults.textContent = resultMsg;
     return resultMsg;
 };
 
@@ -58,4 +59,11 @@ function game(){
     }
 }
 
-game();
+const buttons = document.querySelectorAll('button');
+buttons.forEach( (b) => {
+    b.addEventListener('click', function(){
+        playRound(this.textContent, computerPlay());
+    });
+});
+
+const divResults = document.querySelector('.results');
