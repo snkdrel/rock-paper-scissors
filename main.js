@@ -11,6 +11,41 @@ let computerPlay = function(){
     }
 };
 
+let showScores = function(){
+    let scoreString = 'Player: ' + playerScore + ', Computer: ' + computerScore;
+
+    if(numberOfRounds == 5){
+        if(playerScore > computerScore){
+            scoreString += '\n\tYou win the game!';
+        }else{
+            scoreString += '\n\tYou loose the game!';
+        }
+    }
+
+    divScore.textContent = scoreString;
+};
+
+// Keeps score and number of rounds
+let scoreUpdate = (roundResultMsg) => {
+    numberOfRounds++;
+    
+    // update scores
+    if( roundResultMsg.slice(4,7) == "win" ){
+        playerScore++;
+    }else if( roundResultMsg.slice(4,9) == "loose" ){
+        computerScore++;
+    }
+
+    showScores();
+
+    // reset variables
+    if(numberOfRounds == 5){
+        numberOfRounds = 0;
+        playerScore = 0;
+        computerScore = 0;
+    }
+};
+
 // Play one round
 let playRound = (playerChoice, computerChoice) => {
     // Case insensitive
@@ -28,36 +63,11 @@ let playRound = (playerChoice, computerChoice) => {
     else{
         resultMsg = "You loose! " + computerChoice + " beats " + playerChoice;
     }
+    // shows result of round
     divResults.textContent = resultMsg;
-    return resultMsg;
+    
+    scoreUpdate(resultMsg);
 };
-
-// Play multiple rounds
-function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    let playerSelection;
-    let roundResultMsg;
-
-    for(let i = 0; i < 5; i++){
-        playerSelection = prompt("Choose rock, paper or scissors");
-        roundResultMsg = playRound(playerSelection, computerPlay());
-        console.log(roundResultMsg);
-
-        // Update score
-        if( roundResultMsg.slice(4,7) == "win" ){
-            playerScore++;
-        }else if( roundResultMsg.slice(4,9) == "loose" ){
-            computerScore++;
-        }
-    }
-    // Overall winner
-    if(playerScore > computerScore){
-        console.log("You win the game!");
-    }else{
-        console.log("You loose the game!");
-    }
-}
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach( (b) => {
@@ -67,3 +77,8 @@ buttons.forEach( (b) => {
 });
 
 const divResults = document.querySelector('.results');
+const divScore = document.querySelector('.scores');
+
+let playerScore = 0;
+let computerScore = 0;
+let numberOfRounds = 0;
