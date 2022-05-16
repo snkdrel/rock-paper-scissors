@@ -12,13 +12,13 @@ let computerPlay = function(){
 };
 
 let showScores = function(){
-    let scoreString = 'Player: ' + playerScore + ', Computer: ' + computerScore;
+    let scoreString = 'Player: ' + playerScore + ' - Computer: ' + computerScore;
 
     if(numberOfRounds == 5){
         if(playerScore > computerScore){
-            scoreString += '\n\tYou win the game!';
+            scoreString += '\nYou win the game!';
         }else{
-            scoreString += '\n\tYou loose the game!';
+            scoreString += '\nYou loose the game!';
         }
     }
 
@@ -78,6 +78,7 @@ buttons.forEach( (b) => {
 
 const divResults = document.querySelector('.results');
 const divScore = document.querySelector('.scores');
+divScore.setAttribute('style', 'white-space: pre;')
 
 let playerScore = 0;
 let computerScore = 0;
